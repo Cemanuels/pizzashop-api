@@ -1,9 +1,12 @@
 import { Elysia } from 'elysia'
+import { registerRestaurant } from './routes/register-restaurant'
+import { sendAuthLink } from './routes/send-auth-link'
+import chalk from 'chalk'
 
-const app = new Elysia().get('/', () => {
-  return "Hello World"
-})
+const app = new Elysia().use(registerRestaurant).use(sendAuthLink)
 
-app.listen(3333, () => {
-  console.log('HTTP server running!')
+app.listen(Number(process.env.PORT), () => {
+  console.log(
+    chalk.greenBright(`HTTP server running on port ${process.env.PORT}`),
+  )
 })
